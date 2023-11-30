@@ -3,13 +3,15 @@ const selectionArticle = document.querySelector(".selection");
 const yourChoiceDiv = document.getElementById("your-choice");
 const pcChoiceDiv = document.getElementById("pc-choice");
 
-const messagePar = document.querySelector("message");
+const messagePar = document.querySelector(".message");
 
 const scoreCardSection = document.querySelector(".score-card");
-const pcScoreSpan = document.getElementById(".pc-score");
-const yourScoreSpan = document.getElementById(".your-score");
+const pcScoreSpan = document.getElementById("pc-score");
+const yourScoreSpan = document.getElementById("your-score");
 
 const modalCardSection = document.querySelector(".modal-card");
+const finalMessagePar = document.getElementById("final-message");
+const playAgainBtn = document.getElementById("play-again");
 
 let userSelectImg = document.createElement("img");
 let pcSelectImg = document.createElement("img");
@@ -26,6 +28,11 @@ selectionArticle.addEventListener("click", (e) => {
     yourChoiceDiv.appendChild(userSelectImg);
     createPcSelection();
   }
+});
+
+playAgainBtn.addEventListener("click", () => {
+  modalCardSection.style.display = "none";
+  window.location.reload();
 });
 
 const createPcSelection = () => {
@@ -49,7 +56,7 @@ const calculateResult = () => {
       pcRandom === "scissor" ? youLost() : youWin();
     }
   }
-  if (pcScoreSpan.textContent === "10" || yourScoreSpan.textContent) {
+  if (pcScoreSpan.textContent === "10" || yourScoreSpan.textContent === "10") {
     openModel();
   }
 };
@@ -75,4 +82,14 @@ const youWin = () => {
 
 const openModel = () => {
   modalCardSection.classList.add("show");
+
+  if (yourScoreSpan.textContent === "10") {
+    finalMessagePar.textContent = "You Win";
+    document.querySelector(".modal").style.backgroundColor = GREEN;
+    playAgainBtn.style.color = GREEN;
+  } else {
+    finalMessagePar.textContent = "You Lost";
+    document.querySelector(".modal").style.backgroundColor = RED;
+    playAgainBtn.style.color = RED;
+  }
 };
